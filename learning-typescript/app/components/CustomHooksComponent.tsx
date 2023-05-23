@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
 interface PokeData {
@@ -9,8 +8,8 @@ interface PokeData {
 }
 
 const fetchAPI = (url: string) => {
-  const [data, setData] = useState<PokeData[] | null>();
-  const [done, setDone] = useState(false);
+  const [data, setData] = useState<PokeData[] | null>(null);
+  const [done, setDone] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchURL = async () => {
@@ -36,10 +35,11 @@ const CustomHooksComponent = () => {
   return (
     <div>
       {done && data && (
-        <div>
-          <Image alt={data[0].name} src={data[0].url} width={40} height={40} />
-          <p>{data[0].url}</p>
-        </div>
+        <ul>
+          {data.map((item) => (
+            <li key={item.name}>{item.name}</li>
+          ))}
+        </ul>
       )}
     </div>
   );
